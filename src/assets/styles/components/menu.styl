@@ -1,0 +1,72 @@
+.menu
+  width vw(252)
+  height 100%
+  position fixed
+  left 0
+  padding-top vw(30)
+  padding-bottom vw(30)
+  background-color $white
+
+  &__logo-link
+    width vw(123)
+    height vw(27)
+    display block
+    margin 0 auto
+    margin-bottom vw(16)
+  &__logo-img
+    width 100%
+    height 100%
+  &__inscr
+    text-transform uppercase
+    display block
+    text-align center
+    color #787485
+    font-size vw(11)
+    letter-spacing vw(1)
+    margin-bottom vw(145)
+  &__item
+    display flex
+    transition 0.3s background-color;
+    &--about
+      & ^[0]__item-icon
+        width vw(33)
+        height vw(33)
+    &--stadium
+      & ^[0]__item-icon
+        width vw(60)
+        height vw(25)
+    &--support
+      & ^[0]__item-icon
+        width vw(40)
+        height vw(35)
+    &--meeting
+      & ^[0]__item-icon
+        width vw(30)
+        height vw(30)
+    &--active
+      background-color $purple
+      & ^[0]__link
+        color #fff
+      & ^[0]__item-icon
+        fill $white
+    &:hover
+      background-color $purple
+      & ^[0]__link
+        color $white
+      & ^[0]__item-icon
+        fill $white
+    &-img
+      width vw(86)
+      display flex
+      align-items center
+      justify-content center
+  &__link
+    font-size vw(14)
+    color #3a2c4d
+    font-weight 500
+    text-decoration none
+    height vw(82)
+    width 100%
+    display flex
+    align-items center
+    position relative

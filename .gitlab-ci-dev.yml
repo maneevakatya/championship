@@ -1,0 +1,53 @@
+cache:
+  untracked: true
+  key: "$AWS_BUCKET_NAME"
+  paths:
+    - node_modules/
+
+stages:
+  - build
+  - deploy
+
+build-dev:  
+   image: lllelll/node_pupeeteer_bzip2_tar
+   stage: build
+   only:    
+      - dev  
+   script:
+      - export VUE_APP_ANALYTICS=development
+      - yarn
+      - yarn build 
+   artifacts:    
+      paths:
+         - dist/    
+      expire_in: 1 hour
+      
+deploy-dev:
+   cache: {}
+   image: xueshanf/awscli
+   stage: deploy
+   only:    
+      - dev  
+   script:  
+      - aws s3 sync ./dist s3://$AWS_BUCKET_NAME/ --acl public-read --delete --follow-symlinks
+
+deploy-prod:  
+   image: lllelll/openconnect-totp-git 
+   cache: {}
+   stage: deploy  
+   only:    
+      - master
+   before_script:
+      - git config --global user.email "sergey.andreychenko@gmail.com"
+      - git config --global user.name "Sergey Andreychenko"
+      - echo -n $VPN_PIN$(oathtool --totp -b $VPN_SECRET) | openconnect -b --user $VPN_LOGIN --authgroup=User $VPN_SERVER
+      - sleep 30
+      - mkdir -p ~/.ssh
+      - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+      - chmod 700 ~/.ssh/id_rsa
+      - eval "$(ssh-agent -s)"
+      - ssh-add ~/.ssh/id_rsa 
+      - echo "$RM_FP" >> ~/.ssh/known_hosts
+   script:    
+      - git pull --no-edit $PROD_GIT master --allow-unrelated-histories
+      - git push $PROD_GIT HEAD:master

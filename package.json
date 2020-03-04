@@ -1,0 +1,63 @@
+{
+  "name": "rpoint-boilerplate",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@cookieseater/vue-yandex-share": "^0.2.1",
+    "core-js": "^2.6.5",
+    "vue": "^2.6.10",
+    "vue-analytics": "^5.17.0",
+    "vue-router": "^3.0.3",
+    "vue-yandex-metrika": "^1.8.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.8.0",
+    "@vue/cli-plugin-eslint": "^3.8.0",
+    "@vue/cli-service": "^3.8.0",
+    "babel-eslint": "^10.0.1",
+    "body-scroll-lock": "^2.6.4",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "esm": "^3.2.25",
+    "favicons-webpack-plugin": "^0.0.9",
+    "prerender-spa-plugin": "^3.4.0",
+    "pug": "^2.0.4",
+    "pug-plain-loader": "^1.0.0",
+    "style-resources-loader": "^1.2.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "vue-svg-loader": "^0.12.0",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 2%",
+    "not dead",
+    "not OperaMini all",
+    "ie >= 10",
+    "Edge >= 12"
+  ]
+}

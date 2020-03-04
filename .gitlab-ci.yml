@@ -1,0 +1,72 @@
+cache:
+  paths:
+    - node_modules/
+    
+variables:
+  PROJECT_NAME: dominicana.afisha.ru
+  GITLAB_REGISTRY: gitlab-special.rambler-co.ru:5000
+  REGISTRY_PATH: andreichenko
+  IMAGE_TAG: ${GITLAB_REGISTRY}/${REGISTRY_PATH}/${PROJECT_NAME}
+types:
+  - build-app
+  - build-docker
+  - test
+  - deploy
+
+build-prod:  
+   image: lllelll/node_pupeeteer_bzip2_tar 
+   stage: build-app
+   script:      
+      - export VUE_APP_ANALYTICS=production
+      - yarn
+      - yarn build 
+   artifacts:    
+      paths:
+         - dist/    
+
+build_image:
+  stage: build-docker
+  when: on_success
+  script:
+    - echo ${REGISTRY_TOKEN} | docker login --username ${REGISTRY_USER} --password-stdin ${GITLAB_REGISTRY}
+    - docker build -t ${IMAGE_TAG}:${CI_PIPELINE_ID} .
+    - docker version
+    - docker push ${IMAGE_TAG}:${CI_PIPELINE_ID}
+    - docker logout ${GITLAB_REGISTRY}
+
+vulneable_check:
+  stage: test
+  when: manual
+  script:
+    - apk add git
+    - trivy --quiet ${IMAGE_TAG}:${CI_PIPELINE_ID}
+
+deploy:
+  stage: deploy
+  when: on_success
+  variables:
+    NAMESPACE: andreichenko
+    RELEASE: dominicana
+    APP_CHART: /common_chart.tgz
+    INGRESS_HOST: dominicana.afisha.ru
+  before_script:
+    - mkdir -p .kube
+    - echo ${KUBE_CONFIG} | base64 -d > .kube/config
+    - export KUBECONFIG=.kube/config
+  after_script:
+    - rm -rf .kube
+  script:
+    - >-
+      helm upgrade
+      --install
+      --force
+      --wait
+      --tiller-namespace=${NAMESPACE}
+      --namespace=${NAMESPACE} ${RELEASE} ${APP_CHART}
+      --set "image.repository=${IMAGE_TAG}"
+      --set "image.tag=${CI_PIPELINE_ID}"
+      --set "ingress.hosts[0]=${INGRESS_HOST}"
+      --set "resources.limits.cpu=${LIMIT_CPU}"
+      --set "resources.limits.memory=${LIMIT_MEM}"
+      --set "resources.requests.cpu=${REQUEST_CPU}"
+      --set "resources.requests.memory=${REQUEST_MEM}"
