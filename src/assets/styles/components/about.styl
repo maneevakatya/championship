@@ -2,3 +2,37 @@
   height 100%
   background-image url(assets/img/bg1.jpg)
   background-size cover
+  padding-left vw(172)
+  padding-right vw(30)
+  padding-top vw(140)
+  display flex
+  justify-content space-between
+  &__info
+    max-width vw(470)
+    display flex
+    flex-direction column
+    align-items flex-start
+    margin-right vw(60)
+  &__title
+    font-size vw(80)
+    line-height vw(95)
+    font-weight 500
+    color $white
+    mb vw(35)
+  &__text
+    font-size vw(17)
+    line-height vw(23)
+    font-weight 400
+    color $white
+    mb vw(60)
+  &__players
+    padding-top vw(165)
+  &__link
+    color $white
+    text-decoration none
+    padding-bottom vw(2)
+    border-bottom 1px solid $white
+    transition 0.3s border-color
+    &:hover
+      border-color transparent
+    

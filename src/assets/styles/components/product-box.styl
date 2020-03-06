@@ -1,0 +1,38 @@
+.product-box
+  position fixed
+  bottom vw(30)
+  right vw(30)
+  padding vw(20)
+  width vw(415)
+  border 1px solid #ccc
+  &:before
+    content ""
+    position absolute
+    left 0
+    right 0
+    top 0
+    bottom 0
+    background-color #2f1736
+    opacity 0.6
+    z-index -1
+  &__text
+    color $white
+    font-size vw(16)
+    line-height vw(24)
+    font-weight 600
+    max-width vw(150)
+  &__link
+    margin-left vw(10)
+    font-size vw(15)
+    color $orange
+    font-weight 700
+    text-decoration none
+    transition 0.3s opacity 
+    &:hover
+      opacity 0.8
+  &__img
+    width vw(240)
+    height vw(130)
+    position absolute
+    right 0
+    bottom 0

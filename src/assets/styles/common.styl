@@ -2,3 +2,21 @@ html
   ff $os
 body
   oh()
+.btn
+  border 0
+  outline none 
+  font-size vw(18)
+  font-weight 600
+  text-decoration none
+  &--primary
+    color $white
+    background-color $orange
+    height vw(52)
+    display flex
+    align-items center
+    padding-left vw(30)
+    padding-right vw(30)
+    line-height 1
+    transition 0.4s background-color
+    &:hover
+      background-color $orange-dark

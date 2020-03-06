@@ -1,21 +1,47 @@
 .menu
-  width vw(252)
   height 100%
+  width vw(82)
   position fixed
   left 0
-  padding-top vw(30)
-  padding-bottom vw(30)
   background-color $white
-
+  transition 0.5s width
+  overflow hidden
+  z-index 1
+  &:hover
+    width vw(252)
+  &__wrapper
+    background-color $white
+    padding-top vw(30)
+    padding-bottom vw(30)
+    height 100%
+    z-index 2
+  &__overlay
+    position fixed
+    left 0
+    top 0
+    right 0
+    bottom 0
+    background-color $black
+    opacity 0
+    z-index -1
+    pointer-events none
+    transition 0.3s opacity
+    ^[0]:hover &
+      opacity 0.4
   &__logo-link
-    width vw(123)
-    height vw(27)
     display block
-    margin 0 auto
+    text-align center
     margin-bottom vw(16)
   &__logo-img
-    width 100%
-    height 100%
+    height vw(25)
+    transition 0.5s width
+    &--short
+      width vw(20)
+    &--long
+      width 0
+      margin-left vw(5)
+      ^[0]:hover &
+        width vw(123)
   &__inscr
     text-transform uppercase
     display block
@@ -23,7 +49,15 @@
     color #787485
     font-size vw(11)
     letter-spacing vw(1)
-    margin-bottom vw(145)
+    opacity 0
+    position relative
+    right vw(-20)
+    transition 0.3s opacity, 0.3s right
+    ^[0]:hover &
+      opacity 1
+      right 0
+  &__nav
+    margin-top vw(145)
   &__item
     display flex
     transition 0.3s background-color;
@@ -60,6 +94,14 @@
       display flex
       align-items center
       justify-content center
+      flex-shrink 0
+    &-text
+      opacity 0
+      position relative
+      white-space nowrap
+      transition 0.5s opacity
+      ^[0]:hover &
+        opacity 1
   &__link
     font-size vw(14)
     color #3a2c4d
@@ -70,3 +112,4 @@
     display flex
     align-items center
     position relative
+
